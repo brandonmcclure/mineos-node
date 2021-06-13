@@ -1,3 +1,42 @@
+# FROM node:16-stretch-slim
+# ENV NODE_ENV=production
+
+# WORKDIR /code
+# RUN npm install -g nodemon
+
+# RUN echo 'APT::Default-Release "stable";' >> "/etc/apt/apt.conf.d/99defaultrelease" \
+# && echo "deb     http://ftp.de.debian.org/debian/    stable main contrib non-free \
+# deb-src http://ftp.de.debian.org/debian/    stable main contrib non-free \
+# deb     http://security.debian.org/         stable/updates  main contrib non-free" >> /etc/apt/sources.list.d/stable.list \
+# && echo "deb     http://ftp.de.debian.org/debian/    sid  ain contrib non-free\
+# deb-src http://ftp.de.debian.org/debian/    sid main contrib non-free\
+# deb     http://security.debian.org/         sid/updates  main contrib non-free" >> /etc/apt/sources.list.d/sid.list
+
+# RUN apt-get update || : \
+#   && apt-get install -y python \
+#   supervisor \
+#   rdiff-backup \
+#   screen \
+#   rsync \
+#   git \
+#   curl \
+#   rlwrap \
+#   libc6=2.31-12
+
+# RUN apt-get update && mkdir -p /usr/share/man/man1 && apt-get install -yf libcups2 libharfbuzz0b openjdk-16-jre-headless
+# COPY package.json /code/package.json
+# RUN npm install && npm ls
+# RUN mv /code/node_modules /node_modules
+
+
+# COPY . /code
+
+# CMD ["npm", "start"]
+
+
+
+
+
 FROM debian:sid-slim
 LABEL MAINTAINER='William Dizon <wdchromium@gmail.com>'
 
@@ -12,7 +51,7 @@ RUN apt-get update && apt-get install -y \
   rlwrap 
 
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
-  RUN mkdir -p /usr/share/man/man1 && apt-get install -y openjdk-16-jre-headless
+  RUN mkdir -p /usr/share/man/man1 && apt-get install -y openjdk-17-jre
   
 
 #install node from nodesource following instructions: https://github.com/nodesource/distributions#debinstall
